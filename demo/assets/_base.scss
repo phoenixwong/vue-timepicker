@@ -1,0 +1,182 @@
+$vue-green: #41B883;
+$vue-dark: #35495E;
+$body-color: #555;
+$dark-grey: #777;
+
+body, html {
+  margin: 0;
+  padding: 0;
+
+  font-family: sans-serif;
+  color: $body-color;
+}
+
+body {
+  font-size: 16px;
+}
+
+h2, h3, h4 {
+  color: $vue-dark;
+}
+
+h2 {
+  margin: 2em 0 1.5em 0;
+}
+
+h3 {
+  margin: 0 0 1em 0;
+}
+
+h4 {
+  margin-bottom: 0.5em;
+}
+
+section {
+  width: 80%;
+  max-width: 1000px;
+  margin: 0 auto 2em auto;
+}
+
+a {
+  color: $vue-green;
+  text-decoration: none;
+}
+
+header {
+  background: $vue-green;
+  color: #fff;
+  text-align: center;
+  height: 150px;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+
+  h1 {
+    margin: 0;
+  }
+
+  p {
+    margin-bottom: 0;
+  }
+}
+
+nav.top-nav {
+  background: $vue-dark;
+
+  .title {
+    display: none;
+  }
+
+  &.stick {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 300;
+
+    .title {
+      display: inline-block;
+      color: $vue-green;
+      position: absolute;
+      z-index: 301;
+      left: 1em;
+      top: .8em;
+    }
+  }
+
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    text-align: center;
+
+    li {
+      display: inline;
+      margin: 0 1em;
+      a {
+        color: rgba(255,255,255, 0.5);
+        display: inline-block;
+        padding: .8em .5em;
+
+        &.active {
+          color: #fff;
+        }
+
+        &:hover {
+          color: rgba(255,255,255, 0.8);
+          cursor: pointer;
+        }
+      }
+    }
+  }
+}
+
+main.content {
+  &.nav-affixed {
+    padding-top: 44px;
+  }
+}
+
+.fade-transition {
+  transition: opacity .2s ease;
+}
+.fade-enter, .fade-leave {
+  opacity: 0;
+}
+
+.description {
+  p {
+    line-height: 1.5em;
+  }
+  code {
+    color: $vue-dark;
+    background: rgba(0,0,0,0.03);
+    border-radius: 3px;
+    padding: 0.2em 0.5em;
+    margin: 0 0.2em;
+    vertical-align: baseline;
+  }
+}
+
+.preview {
+  padding: 2em 1.5em;
+  border: 1px solid rgba(0,0,0,0.07);
+  border-radius: 3px;
+
+  b {
+    font-size: 0.9em;
+    color: $dark-grey;
+  }
+
+  p {
+    margin: 0;
+    padding: .5em 0 1.5em 0;
+
+    &:last-of-type {
+      padding-bottom: 0;
+    }
+  }
+
+}
+
+.codes {
+  pre {
+    position: relative;
+    font-size: 0.8em;
+    code {
+      padding: 2em;
+      border-radius: 3px;
+    }
+
+    &:after {
+      content: attr(data-title);
+      position: absolute;
+      top: 0.3em;
+      right: 0.8em;
+      font-size: 0.8em;
+      color: transparentize($vue-dark, 0.6);
+    }
+  }
+}
