@@ -1,10 +1,14 @@
 # Vue Time Picker
 
-A dropdown time picker for [Vue.js](http://vuejs.org/)
+A dropdown time picker for **Vue.js**
+
+## Demo
+
+You can see the `vue-timepicker` in action in the [Demo Page](https://phoenixwong.github.io/vue-timepicker/)
 
 ## Dependencies
 
-Require: [Vue.js](http://vuejs.org/)
+[Vue.js](http://vuejs.org/) v1.0.21+
 
 ## Get Started
 
@@ -196,17 +200,17 @@ Whereas the `time-value` will only return the data with defined tokens in format
 
 ### Props API
 
-Prop              | Type      | Required | Default Value
------------------ | --------- | -------- | -------------
-format            | _String_  | no       | "HH:mm"
-minute-interval   | _Number_  | no       | _undefined_
-second-interval   | _Number_  | no       | _undefined_
-time-value        | _Object_  | no       | _undefined_
-hide-clear-button | _Boolean_ | no       | false
+Prop                  | Type      | Required | Default Value
+--------------------- | --------- | -------- | -------------
+**format**            | _String_  | no       | "HH:mm"
+**minute-interval**   | _Number_  | no       | _undefined_
+**second-interval**   | _Number_  | no       | _undefined_
+**time-value**        | _Object_  | no       | _undefined_
+**hide-clear-button** | _Boolean_ | no       | false
 
-## Help Developing
+## Contribution
 
-This is the very first version of `vue-timepicker` and includes ES6 solution only. Please fork and help developing
+This is the very first version of `vue-timepicker` and it currently includes ES6 solution only. Please feel free to fork and help developing.
 
 ```bash
 # install dependencies
@@ -214,12 +218,9 @@ npm install
 
 # serve with hot reload at localhost:8080
 npm run dev
-
-# build for production with minification
-npm run build
 ```
 
-For detailed explanation on how things work, checkout the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+For detailed explanation on how things work, checkout the [webpack guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
 
 ## License
 
