@@ -1,1 +1,1 @@
-import VueTimepicker from 'src/vue-timepicker.vue'
+module.exports = require('./src/vue-timepicker.vue')

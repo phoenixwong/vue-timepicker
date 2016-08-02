@@ -12,20 +12,28 @@ You can see the `vue-timepicker` in action in the [Demo Page](https://phoenixwon
 
 ## Installation
 
+Through NPM (recommended)
+
 ```bash
 npm install vue-time-picker --save-dev
 ```
 
+Bower
+
+```bash
+bower install vue-timepicker --save
+```
+
 ## Get Started
 
-Step 1: Import the `vue-timepicker.vue`
+Step 1: Import VueTimepicker
 
 ```javascript
-// ES6 import
-import VueTimepicker from 'yoursrc/vue-timepicker.vue'
+// import
+import VueTimepicker from 'vue-time-picker'
 
-// Or, use require
-var VueTimepicker = require('yoursrc/vue-timepicker.vue')
+// Or, require
+var VueTimepicker = require('vue-time-picker')
 ```
 
 Step 2: Include VueTimepicker in your component
