@@ -1,0 +1,29 @@
+{
+  "name": "vue-timepicker",
+  "description": "A dropdown time picker for VueJS",
+  "main": "index.js",
+  "authors": [
+    "Phoenix Wong (phoenixyfwong@gmail.com)"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "vue",
+    "time",
+    "picker",
+    "dropdown",
+    "input",
+    "UI"
+  ],
+  "homepage": "https://github.com/phoenixwong/vue-timepicker",
+  "moduleType": [
+    "es6",
+    "node"
+  ],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

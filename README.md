@@ -10,6 +10,12 @@ You can see the `vue-timepicker` in action in the [Demo Page](https://phoenixwon
 
 [Vue.js](http://vuejs.org/) v1.0.21+
 
+## Installation
+
+```bash
+npm install vue-time-picker --save-dev
+```
+
 ## Get Started
 
 Step 1: Import the `vue-timepicker.vue`
