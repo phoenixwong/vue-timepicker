@@ -35,6 +35,7 @@ Application/Runtime/Temp/
 ehthumbs.db
 Thumbs.db
 ~$*
+.editorconfig
 
 # NodeJS Packages #
 ###################
