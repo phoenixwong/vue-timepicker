@@ -36,7 +36,7 @@ export default {
   <div class="main-wrapper">
     <header v-cloak>
       <h1>Vue Timepicker</h1>
-      <p>A dropdown time picker for Vue.js</p>
+      <p>A dropdown time picker for Vue.js. With flexible time format support</p>
     </header>
     <nav class="top-nav" :class="{stick: scrollTop > 150}">
       <span class="title">Vue Timepicker</span>

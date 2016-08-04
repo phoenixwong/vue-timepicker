@@ -1,6 +1,6 @@
 # Vue Time Picker
 
-A dropdown time picker for **Vue.js**
+A dropdown time picker (hour|minute|second) for **Vue.js**. With flexible time format support
 
 ## Demo
 
@@ -10,19 +10,45 @@ You can see the `vue-timepicker` in action in the [Demo Page](https://phoenixwon
 
 [Vue.js](http://vuejs.org/) v1.0.21+
 
-## Get Started
+## Installation
 
-Step 1: Import the `vue-timepicker.vue`
+Through NPM (recommended)
 
-```javascript
-// ES6 import
-import VueTimepicker from 'yoursrc/vue-timepicker.vue'
-
-// Or, use require
-var VueTimepicker = require('yoursrc/vue-timepicker.vue')
+```bash
+npm install vue-time-picker --save-dev
 ```
 
-Step 2: Include VueTimepicker in your component
+Bower
+
+```bash
+bower install vue-timepicker --save
+```
+
+## Get Started
+
+**Step 1:** Import VueTimepicker
+
+A. Include with modules
+
+```javascript
+// import
+import VueTimepicker from 'vue-time-picker'
+
+// Or, require
+var VueTimepicker = require('vue-time-picker')
+
+```
+
+B. Include with `<script>` and `<style>`
+
+Just put the `vue-timepicker.min.js` (or `vue-timepicker.js`) script block after Vue itself
+
+```javascript
+// Don't forget to call this
+Vue.use(window.VueTimepicker)
+```
+
+**Step 2**: Include VueTimepicker in your component
 
 ```javascript
 var yourComponent = new Vue({
@@ -31,7 +57,7 @@ var yourComponent = new Vue({
 })
 ```
 
-Step 3: Then, you can introduce the `vue-timepicker` tag anywhere you like in your component's template
+**Step 3**: Then, you can introduce the `vue-timepicker` tag anywhere you like in your component's template
 
 ```html
 <vue-timepicker></vue-timepicker>
@@ -61,20 +87,20 @@ Step 3: Then, you can introduce the `vue-timepicker` tag anywhere you like in yo
 
 VueTimepicker will recognizes the following tokens in the format string
 
-Section | Token | Output
-------- | ----- | -------------
-AM/PM   | A     | AM PM
-        |       | a             | am pm
-Hour    | H     | 0 1 ... 22 23
-        |       | HH            | 00 01 ... 22 23
-        |       | h             | 1 2 ... 11 12
-        |       | hh            | 01 02 ... 11 12
-        |       | k             | 1 2 ... 23 24
-        |       | kk            | 01 02 ... 23 24
-Minute  | m     | 0 1 ... 58 59
-        |       | mm            | 00 01 ... 58 59
-Second  | s     | 0 1 ... 58 59
-        |       | ss            | 00 01 ... 58 59
+Section    | Token | Output
+---------- | ----- | ---------------
+**AM/PM**  | A     | AM PM
+           | a     | am pm
+**Hour**   | H     | 0 1 ... 22 23
+           | HH    | 00 01 ... 22 23
+           | h     | 1 2 ... 11 12
+           | hh    | 01 02 ... 11 12
+           | k     | 1 2 ... 23 24
+           | kk    | 01 02 ... 23 24
+**Minute** | m     | 0 1 ... 58 59
+           | mm    | 00 01 ... 58 59
+**Second** | s     | 0 1 ... 58 59
+           | ss    | 00 01 ... 58 59
 
 > If not set, `format` string will be default to "HH:mm"
 
@@ -210,7 +236,7 @@ Prop                  | Type      | Required | Default Value
 
 ## Contribution
 
-This is the very first version of `vue-timepicker` and it currently includes ES6 solution only. Please feel free to fork and help developing.
+Please feel free to fork and help developing.
 
 ```bash
 # install dependencies
