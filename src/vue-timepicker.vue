@@ -37,8 +37,8 @@ export default {
   },
 
   computed: {
-    displayTime: function () {
-      let formatString = (this.format || 'HH:mm') + ''
+    displayTime () {
+      let formatString = String((this.format || 'HH:mm'))
       if (this.hour) {
         formatString = formatString.replace(new RegExp(this.hourType, 'g'), this.hour)
       }
@@ -57,10 +57,10 @@ export default {
 
   watch: {
     'format': 'renderFormat',
-    'minuteInterval': function (newInteval) {
+    'minuteInterval': (newInteval) => {
       this.renderList('minute', newInteval)
     },
-    'secondInterval': function (newInteval) {
+    'secondInterval': (newInteval) => {
       this.renderList('second', newInteval)
     },
     'timeValue': 'readValues',
@@ -73,17 +73,17 @@ export default {
         case 'H':
         case 'm':
         case 's':
-          return i + ''
+          return String(i)
         case 'HH':
         case 'mm':
         case 'ss':
-          return i < 10 ? `0${i}` : i + ''
+          return i < 10 ? `0${i}` : String(i)
         case 'h':
         case 'k':
-          return (i + 1) + ''
+          return String(i + 1)
         case 'hh':
         case 'kk':
-          return (i + 1) < 10 ? `0${i + 1}` : (i + 1) + ''
+          return (i + 1) < 10 ? `0${i + 1}` : String(i + 1)
         default:
           return ''
       }
@@ -325,7 +325,7 @@ export default {
 <template>
 <span class="time-picker">
   <input class="display-time" v-model="displayTime" @click="toggleDropdown" type="text" readonly />
-  <span class="clear-btn" v-if="!hideClearButton" v-show="!showDropdown && showClearBtn()" @click="clearTime"><i>&times;</i></span>
+  <span class="clear-btn" v-if="!hideClearButton" v-show="!showDropdown && showClearBtn()" @click="clearTime">&times;</span>
   <div class="time-picker-overlay" v-if="showDropdown" @click="toggleDropdown"></div>
   <div class="dropdown" v-show="showDropdown">
     <div class="select-list">
@@ -351,123 +351,5 @@ export default {
 </template>
 
 <style>
-.time-picker {
-  display: inline-block;
-  position: relative;
-  font-size: 1em;
-  width: 10em;
-  font-family: sans-serif;
-}
-
-.time-picker * {
-  box-sizing: border-box;
-}
-
-.time-picker input.display-time {
-  border: 1px solid #d2d2d2;
-  width: 10em;
-  height: 2.2em;
-  padding: 0.3em 0.5em;
-  font-size: 1em;
-}
-
-.time-picker .clear-btn {
-  position: absolute;
-  display: inline-block;
-  top: 0.6em;
-  right: 0.3em;
-  z-index: 3;
-  font-size: 1em;
-  height: 1em;
-  width: 1em;
-  border-radius: 1em;
-  color: #fff;
-  background: #d2d2d2;
-
-  -webkit-transition: background .2s;
-  transition: background .2s;
-}
-
-.time-picker .clear-btn:hover {
-  background: #797979;
-  cursor: pointer;
-}
-
-.time-picker .clear-btn i {
-  font-style: normal;
-  position: relative;
-  right: -0.18em;
-  top: -0.07em;
-}
-
-.time-picker .time-picker-overlay {
-  z-index: 2;
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-}
-
-.time-picker .dropdown {
-  position: absolute;
-  z-index: 5;
-  top: calc(2.2em + 2px);
-  left: 0;
-  background: #fff;
-  box-shadow: 0 1px 6px rgba(0,0,0,0.15);
-  width: 10em;
-  height: 10em;
-  font-weight: normal;
-}
-
-.time-picker .dropdown .select-list {
-  width: 10em;
-  height: 10em;
-  overflow: hidden;
-  display: flex;
-  flex-flow: row nowrap;
-  align-items: stretch;
-  justify-content: space-between;
-}
-
-.time-picker .dropdown ul {
-  padding: 0;
-  margin: 0;
-  list-style: none;
-
-  flex: 1;
-  overflow-x: hidden;
-  overflow-y: auto;
-}
-
-.time-picker .dropdown ul.minutes,
-.time-picker .dropdown ul.seconds,
-.time-picker .dropdown ul.apms{
-  border-left: 1px solid #fff;
-}
-
-.time-picker .dropdown ul li {
-  text-align: center;
-  padding: 0.3em 0;
-  color: #161616;
-}
-
-.time-picker .dropdown ul li:not(.hint):hover {
-  background: rgba(0,0,0,.08);
-  color: #161616;
-  cursor: pointer;
-}
-
-.time-picker .dropdown ul li.active,
-.time-picker .dropdown ul li.active:hover {
-  background: #41B883;
-  color: #fff;
-}
-
-.time-picker .dropdown .hint {
-  color: #a5a5a5;
-  cursor: default;
-  font-size: 0.8em;
-}
+@import './style/vue-timepicker.css';
 </style>
