@@ -224,6 +224,34 @@ Whereas the `time-value` will only return the data with defined tokens in format
 }
 ```
 
+**Method 3:** Add `@change` event handler
+
+```html
+<!-- A: No arguments -->
+<vue-timepicker :time-value.sync="yourTimeValue" @change="changeHandler"></vue-timepicker>
+
+<!-- B: Custom arguments -->
+<vue-timepicker :time-value.sync="yourTimeValue" @change="otherChangeHandler($arguments, 'foo', 'bar')"></vue-timepicker>
+```
+
+```javascript
+// A: No arguments
+changeHandler (eventData) {
+  console.log(eventData)
+  // -> [{data: {HH:..., mm:... }}]
+}
+
+// B: Custom arguments
+otherChangeHandler (eventData, yourArg1, yourArg2) {
+  console.log(eventData)
+  // -> [{data: {HH:..., mm:... }}]
+  console.log(yourArg1)
+  // -> 'foo'
+  console.log(yourArg2)
+  // -> 'bar'
+}
+```
+
 ### Props API
 
 Prop                  | Type      | Required | Default Value

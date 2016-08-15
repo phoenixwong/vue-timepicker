@@ -50,6 +50,8 @@ export default {
 
       playgroundFullValue: {},
 
+      muteWatch: false,
+
       scrollTop: 0
     }
   },
@@ -204,6 +206,7 @@ export default {
     },
 
     updatePlaygroundData () {
+      if (this.muteWatch) { return }
       let data = {}
       data[this.type.hour] = this.formatValue(this.type.hour, this.selected.hour)
       data[this.type.minute] = this.formatValue(this.type.minute, this.selected.minute)
@@ -234,6 +237,16 @@ export default {
       return string
     },
 
+    updateRangeValue (data) {
+      this.muteWatch = true
+      this.selected.hour = Number(data[this.type.hour])
+      this.selected.minute = Number(data[this.type.minute])
+      this.selected.second = Number(data[this.type.second])
+      this.selected.apm = data[this.type.apm].toLowerCase()
+      this.refreshHighlight('pgdata')
+      this.muteWatch = false
+    },
+
     refreshHighlight (elm) {
       const self = this
       this.$nextTick(() => {
@@ -251,6 +264,7 @@ export default {
   events: {
     'vue-timepicker-update': function (data) {
       this.playgroundFullValue = data
+      this.updateRangeValue(data)
       this.refreshHighlight('pgvalue')
     }
   },
@@ -313,7 +327,6 @@ export default {
 
       <div class="config-block">
         <h3 class="subtitle"><a class="anchor">#</a>Customized Interval</h3>
-        <!-- <label class="group-label">Customized Interval:</label> -->
         <div class="config-row group">
           <label>
             <input v-model="customInterval.minute" type="checkbox" /> Minute Interval
@@ -336,7 +349,6 @@ export default {
 
       <div class="config-block">
         <h3 class="subtitle"><a class="anchor">#</a>Clear Button</h3>
-        <!-- <label class="group-label">Clear Button</label> -->
         <div class="config-row group">
           <label for="enable_btn_true">
             <input v-model="enableClearBtn" type="radio" id="enable_btn_true" name="enable_btn" :value="true" /> Enable
