@@ -24,6 +24,7 @@ export default {
       seconds: [],
       apms: [],
       showDropdown: false,
+      muteWatch: false,
       hourType: 'HH',
       minuteType: 'mm',
       secondType: '',
@@ -178,7 +179,7 @@ export default {
     },
 
     readValues () {
-      if (!this.timeValue) { return }
+      if (!this.timeValue || this.muteWatch) { return }
 
       const values = Object.keys(this.timeValue)
 
@@ -276,8 +277,24 @@ export default {
       fullValues.ss = secondValue < 10 ? `0${secondValue}` : String(secondValue)
 
       this.fullValues = fullValues
-
+      this.updateTimeValue(fullValues)
       this.$dispatch('vue-timepicker-update', fullValues)
+    },
+
+    updateTimeValue (fullValues) {
+      if (!this.timeValue) { return }
+
+      this.muteWatch = true
+
+      const self = this
+      Object.keys(this.timeValue).forEach((key) => {
+        self.timeValue[key] = fullValues[key]
+      })
+
+      this.$nextTick(() => {
+        self.muteWatch = false
+        self.$dispatch('change', {data: self.timeValue})
+      })
     },
 
     isTwelveHours (token) {

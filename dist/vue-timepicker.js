@@ -30,6 +30,7 @@ function install (Vue) {
         seconds: [],
         apms: [],
         showDropdown: false,
+        muteWatch: false,
         hourType: 'HH',
         minuteType: 'mm',
         secondType: '',
@@ -184,7 +185,7 @@ function install (Vue) {
       },
 
       readValues: function () {
-        if (!this.timeValue) { return; }
+        if (!this.timeValue || this.muteWatch) { return; }
 
         var values = Object.keys(this.timeValue);
 
@@ -282,8 +283,24 @@ function install (Vue) {
         fullValues.ss = secondValue < 10 ? '0' + secondValue : String(secondValue);
 
         this.fullValues = fullValues;
-
+        this.updateTimeValue(fullValues);
         this.$dispatch('vue-timepicker-update', fullValues);
+      },
+
+      updateTimeValue: function (fullValues) {
+        if (!this.timeValue) { return; }
+
+        this.muteWatch = true;
+
+        var self = this;
+        Object.keys(this.timeValue).forEach(function (key) {
+          self.timeValue[key] = fullValues[key];
+        });
+
+        this.$nextTick(function () {
+          self.muteWatch = false;
+          self.$dispatch('change', {data: self.timeValue});
+        });
       },
 
       isTwelveHours: function (token) {
