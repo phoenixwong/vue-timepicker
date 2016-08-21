@@ -227,7 +227,7 @@ Whereas the `time-value` will only return the data with defined tokens in format
 **Method 3:** Add `@change` event handler
 
 ```html
-<!-- A: No arguments -->
+<!-- A: No argument -->
 <vue-timepicker :time-value.sync="yourTimeValue" @change="changeHandler"></vue-timepicker>
 
 <!-- B: Custom arguments -->
@@ -235,10 +235,10 @@ Whereas the `time-value` will only return the data with defined tokens in format
 ```
 
 ```javascript
-// A: No arguments
+// A: No argument
 changeHandler (eventData) {
   console.log(eventData)
-  // -> [{data: {HH:..., mm:... }}]
+  // -> {data: {HH:..., mm:... }}
 }
 
 // B: Custom arguments
@@ -252,7 +252,7 @@ otherChangeHandler (eventData, yourArg1, yourArg2) {
 }
 ```
 
-### Props API
+## Props API
 
 Prop                  | Type      | Required | Default Value
 --------------------- | --------- | -------- | -------------
@@ -275,6 +275,10 @@ npm run dev
 ```
 
 For detailed explanation on how things work, checkout the [webpack guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+
+## Change Log
+
+Detail changes for each release are documented in  [CHANGELOG.md](https://github.com/phoenixwong/vue-timepicker/blob/master/CHANGELOG.md)
 
 ## License
 

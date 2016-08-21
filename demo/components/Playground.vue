@@ -242,7 +242,7 @@ export default {
       this.selected.hour = Number(data[this.type.hour])
       this.selected.minute = Number(data[this.type.minute])
       this.selected.second = Number(data[this.type.second])
-      this.selected.apm = data[this.type.apm].toLowerCase()
+      this.selected.apm = (data[this.type.apm] || '').toLowerCase()
       this.refreshHighlight('pgdata')
       this.muteWatch = false
     },

@@ -12,23 +12,67 @@ export default {
         ss: '00',
         a: 'am'
       },
-      yourFormat: 'hh:mm:ss a'
+      yourFormat: 'hh:mm:ss a',
+      yourDaysArray: [
+        {start_time: {HH: '08', mm: '00'}, end_time: {HH: '09', mm: '00'}},
+        {start_time: {HH: '15', mm: '00'}, end_time: {HH: '', mm: ''}},
+        {start_time: {HH: '', mm: ''}, end_time: {HH: '13', mm: '30'}},
+        {start_time: {HH: '', mm: ''}, end_time: {HH: '', mm: ''}}
+      ],
+      muteFlowListener: true,
+      latestDataFlow: undefined,
+      demoData1: {HH: '08', mm: '30'},
+      demoData2: {HH: '10', mm: '45'},
+      demoArgs: undefined
+    }
+  },
+  events: {
+    'vue-timepicker-update': function () {
+      const self = this
+      this.$nextTick(() => {
+        self.refreshAllHighlight()
+      })
     }
   },
   methods: {
+    refreshHighlightNextTick () {
+      const self = this
+      this.$nextTick(() => {
+        self.refreshAllHighlight()
+      })
+    },
+
     refreshAllHighlight () {
       if (!this.$el) { return }
       const codeBlocks = this.$el.querySelectorAll('pre code')
       codeBlocks.forEach((block) => {
         window.hljs.highlightBlock(block)
       })
+    },
+
+    changeHandler (eventData) {
+      if (this.muteFlowListener) { return }
+      this.latestDataFlow = eventData
+      this.demoArgs = undefined
+      this.refreshHighlightNextTick()
+    },
+
+    otherChangeHandler (eventData, arg1, arg2) {
+      if (this.muteFlowListener) { return }
+      this.latestDataFlow = eventData
+      this.demoArgs = {
+        arg1: arg1,
+        arg2: arg2
+      }
+      this.refreshHighlightNextTick()
     }
   },
   compiled () {
+    this.refreshHighlightNextTick()
     const self = this
-    this.$nextTick(() => {
-      self.refreshAllHighlight()
-    })
+    window.setTimeout(() => {
+      self.muteFlowListener = false
+    }, 1000)
   },
   ready () {
     this.$nextTick(() => {
@@ -171,10 +215,136 @@ export default {
     </div>
 
     <div class="block">
-      <h3 class="title"><a class="anchor" id="more">#</a>More complex usage</h3>
+      <h3 class="title"><a class="anchor" id="vForSample">#</a>Work with <code>v-for</code></h3>
       <div class="description">
-        <p>Didn't find what you need? Please check the <a>Playground</a> or <a href="https://github.com/phoenixwong/vue-timepicker" target="_blank">Documentation</a> for more inspiration.</p>
+        <p>Here's a quick sample of <code>v-for</code> usage</p>
       </div>
+      <div class="codes">
+<pre data-title="JS"><code class="javascript">data: {
+  yourDaysArray: [
+    {start_time: {HH: '08', mm: '00'}, end_time: {HH: '09', mm: '00'}},
+    {start_time: {HH: '15', mm: '00'}, end_time: {HH: '', mm: ''}},
+    {start_time: {HH: '', mm: ''}, end_time: {HH: '13', mm: '30'}},
+    {start_time: {HH: '', mm: ''}, end_time: {HH: '', mm: ''}}
+  ]
+}</code></pre>
+      </div>
+      <div class="codes">
+<pre data-title="HTML"><code class="html">
+&lt;p v-for="day in yourDaysArray"&gt;
+  &lt;label&gt;Day <span>{{</span> $index + 1 <span>}}</span>: &lt;/label&gt;
+  &lt;vue-timepicker :time-value.sync="day.start_time"&gt;&lt;/vue-timepicker&gt;
+  &lt;span&gt; to &lt;/span&gt;
+  &lt;vue-timepicker :time-value.sync="day.end_time"&gt;&lt;/vue-timepicker&gt;
+&lt;/p&gt;
+</code></pre>
+      </div>
+      <div class="preview">
+        <p v-for="day in yourDaysArray">
+          <label>Day {{ $index + 1 }}: </label>
+          <vue-timepicker :time-value.sync="day.start_time"></vue-timepicker>
+          <span> to </span>
+          <vue-timepicker :time-value.sync="day.end_time"></vue-timepicker>
+        </p>
+      </div>
+      <div class="codes">
+<pre data-title="yourDaysArray JSON"><code class="json" v-text="yourDaysArray | json 2">
+</code></pre>
+      </div>
+    </div>
+
+    <div class="block">
+      <h3 class="title"><a class="anchor" id="onChangeSample">#</a>The <code>change</code> Event</h3>
+      <div class="description">
+        <p>The <code>change</code> event was introduced in v0.2.1. You can use <code>@change</code> to target and handle individual return data.</p>
+      </div>
+
+      <div class="codes">
+<pre data-title="JS"><code class="javascript">
+methods: {
+  // No argument
+  changeHandler (eventData) {
+    // eventData -> {data: {HH:..., mm:...}}
+  },
+
+  // Customized arguments
+  otherChangeHandler (eventData, arg1, arg2) {
+    // eventData -> [{data: {HH:..., mm:...}}]
+    // arg1 -> 'foo' or 'bar' in this demo
+    // arg2 -> 1 or 42 in this demo
+  }
+}
+</code></pre>
+      </div>
+
+      <div class="codes">
+<pre data-title="HTML"><code class="html">&lt;!--
+[A] With `time-value` set
+--&gt;
+
+&lt;!-- A-1: No argument --&gt;
+&lt;vue-timepicker :time-value.sync="demoData1" @change="changeHandler"&gt;&lt;/vue-timepicker&gt;
+
+&lt;!-- A-2: Custom argument --&gt;
+&lt;vue-timepicker :time-value.sync="demoData2" @change="otherChangeHandler($arguments, 'foo', 1)"&gt;&lt;/vue-timepicker&gt;
+
+&lt;!--
+[B] No binding `time-value`
+--&gt;
+
+&lt;!-- B-1: No argument --&gt;
+&lt;vue-timepicker @change="changeHandler"&gt;&lt;/vue-timepicker&gt;
+
+&lt;!-- B-2: Custom argument --&gt;
+&lt;vue-timepicker @change="otherChangeHandler($arguments, 'bar', 42)"&gt;&lt;/vue-timepicker&gt;
+</code></pre>
+      </div>
+
+      <div class="preview">
+        <p>
+          <b>[A] With `time-value` set, <code>change</code> event will only returns values in predefined format</b>
+        </p>
+
+        <b>A-1: No argument</b>
+        <p>
+          <vue-timepicker :time-value.sync="demoData1" @change="changeHandler"></vue-timepicker>
+        </p>
+
+        <b>A-2: Custom argument ('foo', 1)</b>
+        <p>
+          <vue-timepicker :time-value.sync="demoData2" @change="otherChangeHandler($arguments, 'foo', 1)"></vue-timepicker>
+        </p>
+
+        <p>
+          <b>[B] No binding `time-value`, full value data will be returned</b>
+        </p>
+
+        <b>B-1: No argument</b>
+        <p>
+          <vue-timepicker @change="changeHandler"></vue-timepicker>
+        </p>
+
+        <b>B-2: Custom argument ('bar', 42)</b>
+        <p>
+          <vue-timepicker @change="otherChangeHandler($arguments, 'bar', 42)"></vue-timepicker>
+        </p>
+
+      </div>
+
+      <div class="codes" v-if="demoArgs">
+<pre data-title="Custom Arguments"><code class="javascript" v-text="demoArgs | json">
+</code></pre>
+      </div>
+
+      <div class="codes" v-if="latestDataFlow">
+<pre data-title="Latest eventData"><code class="javascript" v-text="latestDataFlow | json">
+</code></pre>
+      </div>
+
+    </div>
+
+    <div class="block footer-links">
+      <slot name="footer-links"></slot>
     </div>
 
   </section>

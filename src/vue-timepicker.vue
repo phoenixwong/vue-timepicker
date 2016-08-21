@@ -58,10 +58,10 @@ export default {
 
   watch: {
     'format': 'renderFormat',
-    'minuteInterval': (newInteval) => {
+    'minuteInterval': function (newInteval) {
       this.renderList('minute', newInteval)
     },
-    'secondInterval': (newInteval) => {
+    'secondInterval': function (newInteval) {
       this.renderList('second', newInteval)
     },
     'timeValue': 'readValues',
@@ -208,7 +208,7 @@ export default {
       const baseHour = this.hour
       const baseHourType = this.hourType
 
-      const hourValue = Number(baseHour)
+      const hourValue = baseHour || baseHour === 0 ? Number(baseHour) : ''
       const baseOnTwelveHours = this.isTwelveHours(baseHourType)
       const apmValue = this.apm ? String(this.apm).toLowerCase() : false
 
@@ -223,7 +223,10 @@ export default {
         switch (token) {
           case 'H':
           case 'HH':
-            if (baseOnTwelveHours) {
+            if (!String(hourValue).length) {
+              fullValues[token] = ''
+              return
+            } else if (baseOnTwelveHours) {
               if (apmValue === 'pm') {
                 value = hourValue < 12 ? hourValue + 12 : hourValue
               } else {
@@ -236,7 +239,10 @@ export default {
             break
           case 'k':
           case 'kk':
-            if (baseOnTwelveHours) {
+            if (!String(hourValue).length) {
+              fullValues[token] = ''
+              return
+            } else if (baseOnTwelveHours) {
               if (apmValue === 'pm') {
                 value = hourValue < 12 ? hourValue + 12 : hourValue
               } else {
@@ -253,7 +259,12 @@ export default {
               value = hourValue
               apm = apmValue || 'am'
             } else {
-              if (hourValue > 11) {
+              if (!String(hourValue).length) {
+                fullValues[token] = ''
+                fullValues.a = ''
+                fullValues.A = ''
+                return
+              } else if (hourValue > 11) {
                 apm = 'pm'
                 value = hourValue === 12 ? 12 : hourValue % 12
               } else {
@@ -268,13 +279,23 @@ export default {
         }
       })
 
-      const minuteValue = Number(this.minute)
-      fullValues.m = String(minuteValue)
-      fullValues.mm = minuteValue < 10 ? `0${minuteValue}` : String(minuteValue)
+      if (this.minute || this.minute === 0) {
+        const minuteValue = Number(this.minute)
+        fullValues.m = String(minuteValue)
+        fullValues.mm = minuteValue < 10 ? `0${minuteValue}` : String(minuteValue)
+      } else {
+        fullValues.m = ''
+        fullValues.mm = ''
+      }
 
-      const secondValue = Number(this.second) || 0
-      fullValues.s = String(secondValue)
-      fullValues.ss = secondValue < 10 ? `0${secondValue}` : String(secondValue)
+      if (this.second || this.second === 0) {
+        const secondValue = Number(this.second)
+        fullValues.s = String(secondValue)
+        fullValues.ss = secondValue < 10 ? `0${secondValue}` : String(secondValue)
+      } else {
+        fullValues.s = ''
+        fullValues.ss = ''
+      }
 
       this.fullValues = fullValues
       this.updateTimeValue(fullValues)
@@ -282,7 +303,11 @@ export default {
     },
 
     updateTimeValue (fullValues) {
-      if (!this.timeValue) { return }
+      if (!this.timeValue) {
+        // return the `fullValues` if `timeValue` is not set
+        this.$dispatch('change', {data: fullValues})
+        return
+      }
 
       this.muteWatch = true
 

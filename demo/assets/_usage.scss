@@ -23,5 +23,11 @@
     .codes {
       margin-left: 1.5em;
     }
+
+    &.footer-links {
+      a {
+        cursor: pointer;
+      }
+    }
   }
 }
