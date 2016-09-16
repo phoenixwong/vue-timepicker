@@ -281,7 +281,7 @@ export default {
   ready () {
     const self = this
     scrollHandler = (evt) => {
-      self.scrollTop = evt.target.scrollingElement.scrollTop || 0
+      self.scrollTop = (evt.target.scrollingElement || (document.documentElement || document.body.parentNode)).scrollTop || 0
     }
     window.addEventListener('scroll', scrollHandler)
   },

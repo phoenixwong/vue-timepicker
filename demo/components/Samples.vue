@@ -45,7 +45,7 @@ export default {
     refreshAllHighlight () {
       if (!this.$el) { return }
       const codeBlocks = this.$el.querySelectorAll('pre code')
-      codeBlocks.forEach((block) => {
+      Array.prototype.forEach.call(codeBlocks, (block) => {
         window.hljs.highlightBlock(block)
       })
     },
