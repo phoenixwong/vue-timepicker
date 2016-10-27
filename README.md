@@ -1,6 +1,8 @@
 # Vue Time Picker
 
-A dropdown time picker (hour|minute|second) for **Vue.js**. With flexible time format support
+A dropdown time picker (hour|minute|second) for **Vue.js** (1.x), with flexible time format support
+
+> A new version for Vue 2.x is in progress 💪
 
 ## Demo
 
