@@ -1,8 +1,10 @@
 # Vue Time Picker
 
-A dropdown time picker (hour|minute|second) for **Vue.js** (1.x), with flexible time format support
+A dropdown time picker (hour|minute|second) for **Vue.js (1.x)**, with flexible time format support
 
-> A new version for Vue 2.x is in progress 💪
+> 🎉 **The brand new version for Vue 2.x is up!**
+>
+> Please check  [vue2-timepicker](https://github.com/phoenixwong/vue2-timepicker) for your Vue 2.x project
 
 ## Demo
 
@@ -10,14 +12,14 @@ You can see the `vue-timepicker` in action in the [Demo Page](https://phoenixwon
 
 ## Dependencies
 
-[Vue.js](http://vuejs.org/) v1.0.21+
+[Vue.js 1.x](http://v1.vuejs.org/) (>=v1.0.21 <2.0.0)
 
 ## Installation
 
 Through NPM (recommended)
 
 ```bash
-npm install vue-time-picker --save-dev
+npm install vue-time-picker --save
 ```
 
 Bower

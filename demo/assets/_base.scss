@@ -55,15 +55,25 @@ header {
 
   h1 {
     margin: 0;
+    text-shadow: 0 1px 3px transparentize(#000, 0.85);
   }
 
   p {
     margin-bottom: 0;
+    text-shadow: 0 1px 1px transparentize(#000, 0.85);
+
+    .version {
+      font-weight: 100;
+      background-color: transparentize($vue-dark, 0.7);
+      padding: .1em .5em;
+      border-radius: 3px;
+    }
   }
 }
 
 nav.top-nav {
   background: $vue-dark;
+  position: relative;
 
   .title {
     display: none;
@@ -86,6 +96,39 @@ nav.top-nav {
     }
   }
 
+  .v2x {
+    display: inline-block;
+    color: transparentize(#fff, 0.5);
+    position: absolute;
+    z-index: 301;
+    right: 1em;
+    bottom: 0.5em;
+    font-size: 0.9em;
+
+    &:after {
+      content: 'To the brand new';
+      color: $vue-green;
+      white-space: nowrap;
+      position: absolute;
+      font-size: .7em;
+      font-weight: 100;
+      text-transform: uppercase;
+      top: -1.4em;
+      left: 0;
+    }
+
+    a {
+      color: transparentize(#fff, 0.4);
+      -webkit-transition: color .3s;
+      transition: color .3s;
+
+      &:hover {
+        color: transparentize(#fff, 0.2);
+      }
+    }
+  }
+
+
   ul {
     list-style: none;
     padding: 0;
@@ -99,6 +142,9 @@ nav.top-nav {
         color: rgba(255,255,255, 0.5);
         display: inline-block;
         padding: .8em .5em;
+
+        -webkit-transition: color .3s;
+        transition: color .3s;
 
         &.active {
           color: #fff;
