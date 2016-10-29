@@ -43,7 +43,7 @@ export default {
   <div class="main-wrapper">
     <header v-cloak>
       <h1>Vue Timepicker</h1>
-      <p>A dropdown time picker for Vue.js. With flexible time format support</p>
+      <p>A dropdown time picker for <span class="version">Vue 1.x</span> with flexible time format support</p>
     </header>
     <nav class="top-nav" :class="{stick: scrollTop > 150}">
       <span class="title">Vue Timepicker</span>
@@ -52,6 +52,7 @@ export default {
         <li><a @click="switchView('playground')" :class="{active: currentView === 'playground'}">Playground</a></li>
         <li><a href="https://github.com/phoenixwong/vue-timepicker" target="_blank">Documentation</a></li>
       </ul>
+      <span class="v2x"><a href="https://phoenixwong.github.io/vue2-timepicker/" target="_blank">Vue 2.x Version</a> &raquo;</span>
     </nav>
     <main class="content" :class="{'nav-affixed': scrollTop > 150}">
       <component :is="currentView" transition="fade" transition-mode="out-in">

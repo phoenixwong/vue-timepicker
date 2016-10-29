@@ -2,6 +2,23 @@
 
 > The Change Log of Vue Time Picker `vue-timepicker`
 
+## v 0.2.5
+
+### Update
+
+Introduce a brand new version for Vue 2.x: [vue2-timepicker](https://github.com/phoenixwong/vue2-timepicker)
+
+### Improvements
+
+- Reduced the times of direct manipulation of watched/synced variables, for better performance.
+- Improved the returning data of `vue-timepicker-update` event in some situation, like dynamically changing the format string for example.
+
+## v 0.2.3
+
+### Fixes
+
+Fixes Demo page code block and scrolling issue in some Webkit browsers (Safari and some
+previous version of Chrome) and Firefox
 
 ## v 0.2.2
 
