@@ -58,10 +58,10 @@ export default {
 
   watch: {
     'format': 'renderFormat',
-    'minuteInterval': function (newInteval) {
+    minuteInterval (newInteval) {
       this.renderList('minute', newInteval)
     },
-    'secondInterval': function (newInteval) {
+    secondInterval (newInteval) {
       this.renderList('second', newInteval)
     },
     'timeValue': 'readValues',
@@ -181,22 +181,26 @@ export default {
     readValues () {
       if (!this.timeValue || this.muteWatch) { return }
 
-      const values = Object.keys(this.timeValue)
+      const timeValue = JSON.parse(JSON.stringify(this.timeValue || {}))
+      const values = Object.keys(timeValue)
+      if (values.length === 0) { return }
 
       if (values.indexOf(this.hourType) > -1) {
-        this.hour = this.timeValue[this.hourType]
+        this.hour = timeValue[this.hourType]
       }
 
       if (values.indexOf(this.minuteType) > -1) {
-        this.minute = this.timeValue[this.minuteType]
+        this.minute = timeValue[this.minuteType]
       }
 
       if (values.indexOf(this.secondType) > -1) {
-        this.second = this.timeValue[this.secondType]
+        this.second = timeValue[this.secondType]
+      } else {
+        this.second = 0
       }
 
       if (values.indexOf(this.apmType) > -1) {
-        this.apm = this.timeValue[this.apmType]
+        this.apm = timeValue[this.apmType]
       }
 
       this.fillValues()
@@ -210,7 +214,7 @@ export default {
 
       const hourValue = baseHour || baseHour === 0 ? Number(baseHour) : ''
       const baseOnTwelveHours = this.isTwelveHours(baseHourType)
-      const apmValue = this.apm ? String(this.apm).toLowerCase() : false
+      const apmValue = (baseOnTwelveHours && this.apm) ? String(this.apm).toLowerCase() : false
 
       CONFIG.HOUR_TOKENS.forEach((token) => {
         if (token === baseHourType) {
@@ -268,7 +272,11 @@ export default {
                 apm = 'pm'
                 value = hourValue === 12 ? 12 : hourValue % 12
               } else {
-                apm = 'am'
+                if (baseOnTwelveHours) {
+                  apm = ''
+                } else {
+                  apm = 'am'
+                }
                 value = hourValue % 12 === 0 ? 12 : hourValue
               }
             }
@@ -311,11 +319,14 @@ export default {
 
       this.muteWatch = true
 
-      const self = this
-      Object.keys(this.timeValue).forEach((key) => {
-        self.timeValue[key] = fullValues[key]
+      const baseTimeValue = JSON.parse(JSON.stringify(this.timeValue || {}))
+      let timeValue = {}
+      Object.keys(baseTimeValue).forEach((key) => {
+        timeValue[key] = fullValues[key]
       })
+      this.timeValue = timeValue
 
+      const self = this
       this.$nextTick(() => {
         self.muteWatch = false
         self.$dispatch('change', {data: self.timeValue})

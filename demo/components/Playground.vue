@@ -57,7 +57,7 @@ export default {
   },
 
   computed: {
-    formatString: function () {
+    formatString () {
       let formatString = this.type.hour + ':' + this.type.minute
       if (this.type.second !== 'none') {
         formatString += (':' + this.type.second)
@@ -68,11 +68,11 @@ export default {
       return formatString
     },
 
-    needApm: function () {
+    needApm () {
       return this.type.hour === 'h' || this.type.hour === 'hh'
     },
 
-    htmlCode: function () {
+    htmlCode () {
       let start = '<vue-timepicker'
       let end = '>\n</vue-timepicker>'
 
@@ -93,7 +93,7 @@ export default {
       return start + end
     },
 
-    htmlCodeWithVar: function () {
+    htmlCodeWithVar () {
       let htmlCode = this.htmlCode
       const end = '>\n</vue-timepicker>'
       const newEnd = '\n :time-value.sync="yourTimeValue">\n</vue-timepicker>'
@@ -105,7 +105,7 @@ export default {
       return htmlCode
     },
 
-    yourTimeValue: function () {
+    yourTimeValue () {
       let code = 'data: function () {\n'
       code += '  return {\n'
       code += '    yourTimeValue: {\n'
@@ -128,7 +128,7 @@ export default {
       handler: 'updatePlaygroundData'
     },
 
-    'needApm': function (isNeeded) {
+    needApm (isNeeded) {
       if (isNeeded) {
         if (!this.selected.apm) {
           this.type.apm = 'A'
@@ -319,8 +319,8 @@ export default {
         </div>
         <div class="config-row" v-if="needApm">
           <label class="row-label">AM/PM:</label>
-          <label class="options" v-for="atype in tokens.apm" :for="'apm_type' + $index" :class="{disabled: disableApmOption}">
-            <input v-model="type.apm" :value="atype" :disabled="disableApmOption" :id="'apm_type' + $index" type="radio" name="apm_type" /> {{atype}}
+          <label class="options" v-for="atype in tokens.apm" :for="'apm_type' + $index">
+            <input v-model="type.apm" :value="atype" :id="'apm_type' + $index" type="radio" name="apm_type" /> {{atype}}
           </label>
         </div>
       </div>
@@ -379,7 +379,7 @@ export default {
             <span v-text="selected.minute"></span>
           </label>
         </div>
-        <div v-if="secondType !== 'none'" class="config-row">
+        <div v-if="type.second !== 'none'" class="config-row">
           <label class="row-label">Second:</label>
           <label class="options">
             <input v-model="selected.second" type="range" min="0" max="59" :step="interval.second" />

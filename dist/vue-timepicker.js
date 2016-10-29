@@ -187,22 +187,26 @@ function install (Vue) {
       readValues: function () {
         if (!this.timeValue || this.muteWatch) { return; }
 
-        var values = Object.keys(this.timeValue);
+        var timeValue = JSON.parse(JSON.stringify(this.timeValue || {}));
+        var values = Object.keys(timeValue);
+        if (values.length === 0) { return; }
 
         if (values.indexOf(this.hourType) > -1) {
-          this.hour = this.timeValue[this.hourType];
+          this.hour = timeValue[this.hourType];
         }
 
         if (values.indexOf(this.minuteType) > -1) {
-          this.minute = this.timeValue[this.minuteType];
+          this.minute = timeValue[this.minuteType];
         }
 
         if (values.indexOf(this.secondType) > -1) {
-          this.second = this.timeValue[this.secondType];
+          this.second = timeValue[this.secondType];
+        } else {
+          this.second = 0;
         }
 
         if (values.indexOf(this.apmType) > -1) {
-          this.apm = this.timeValue[this.apmType];
+          this.apm = timeValue[this.apmType];
         }
 
         this.fillValues();
@@ -216,7 +220,7 @@ function install (Vue) {
 
         var hourValue = baseHour || baseHour === 0 ? Number(baseHour) : '';
         var baseOnTwelveHours = this.isTwelveHours(baseHourType);
-        var apmValue = this.apm ? String(this.apm).toLowerCase() : false;
+        var apmValue = (baseOnTwelveHours && this.apm) ? String(this.apm).toLowerCase() : false;
 
         CONFIG.HOUR_TOKENS.forEach(function (token) {
           if (token === baseHourType) {
@@ -274,7 +278,11 @@ function install (Vue) {
                   apm = 'pm';
                   value = hourValue === 12 ? 12 : hourValue % 12;
                 } else {
-                  apm = 'am';
+                  if (baseOnTwelveHours) {
+                    apm = '';
+                  } else {
+                    apm = 'am';
+                  }
                   value = hourValue % 12 === 0 ? 12 : hourValue;
                 }
               }
@@ -317,11 +325,14 @@ function install (Vue) {
 
         this.muteWatch = true;
 
-        var self = this;
-        Object.keys(this.timeValue).forEach(function (key) {
-          self.timeValue[key] = fullValues[key];
+        var baseTimeValue = JSON.parse(JSON.stringify(this.timeValue || {}));
+        var timeValue = {};
+        Object.keys(baseTimeValue).forEach(function (key) {
+          timeValue[key] = fullValues[key];
         });
+        this.timeValue = timeValue;
 
+        var self = this;
         this.$nextTick(function () {
           self.muteWatch = false;
           self.$dispatch('change', {data: self.timeValue});
