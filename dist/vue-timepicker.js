@@ -20,7 +20,8 @@ function install (Vue) {
       hideClearButton: {type: Boolean},
       format: {type: String},
       minuteInterval: {type: Number},
-      secondInterval: {type: Number}
+      secondInterval: {type: Number},
+      id: {type: String}
     },
 
     data: function () {
@@ -59,6 +60,13 @@ function install (Vue) {
           formatString = formatString.replace(new RegExp(this.apmType, 'g'), this.apm);
         }
         return formatString;
+      },
+
+      showClearBtn: function () {
+        if ((this.hour && this.hour !== '') || (this.minute && this.minute !== '')) {
+          return true;
+        }
+        return false;
       }
     },
 
@@ -359,14 +367,6 @@ function install (Vue) {
         }
       },
 
-      showClearBtn: function () {
-        if ((this.hour && this.hour !== '') || (this.minute && this.minute !== '')) {
-          return true;
-        } else {
-          return false;
-        }
-      },
-
       clearTime: function () {
         this.hour = '';
         this.minute = '';
@@ -381,26 +381,26 @@ function install (Vue) {
 
     template:
     '<span class="time-picker">' +
-      '<input class="display-time" v-model="displayTime" @click="toggleDropdown" type="text" readonly />' +
-      '<span class="clear-btn" v-if="!hideClearButton" v-show="!showDropdown && showClearBtn()" @click="clearTime">&times;</span>' +
-      '<div class="time-picker-overlay" v-if="showDropdown" @click="toggleDropdown"></div>' +
+      '<input class="display-time" v-model="displayTime" :id="id" @click.stop="toggleDropdown" type="text" readonly />' +
+      '<span class="clear-btn" v-if="!hideClearButton" v-show="!showDropdown && showClearBtn" @click.stop="clearTime">&times;</span>' +
+      '<div class="time-picker-overlay" v-if="showDropdown" @click.stop="toggleDropdown"></div>' +
       '<div class="dropdown" v-show="showDropdown">' +
         '<div class="select-list">' +
           '<ul class="hours">' +
             '<li class="hint" v-text="hourType"></li>' +
-            '<li v-for="hr in hours" v-text="hr" :class="{active: hour === hr}" @click="select(\'hour\', hr)"></li>' +
+            '<li v-for="hr in hours" v-text="hr" :class="{active: hour === hr}" @click.stop="select(\'hour\', hr)"></li>' +
           '</ul>' +
           '<ul class="minutes">' +
             '<li class="hint" v-text="minuteType"></li>' +
-            '<li v-for="m in minutes" v-text="m" :class="{active: minute === m}" @click="select(\'minute\', m)"></li>' +
+            '<li v-for="m in minutes" v-text="m" :class="{active: minute === m}" @click.stop="select(\'minute\', m)"></li>' +
           '</ul>' +
           '<ul class="seconds" v-if="secondType">' +
             '<li class="hint" v-text="secondType"></li>' +
-            '<li v-for="s in seconds" v-text="s" :class="{active: second === s}" @click="select(\'second\', s)"></li>' +
+            '<li v-for="s in seconds" v-text="s" :class="{active: second === s}" @click.stop="select(\'second\', s)"></li>' +
           '</ul>' +
           '<ul class="apms" v-if="apmType">' +
             '<li class="hint" v-text="apmType"></li>' +
-            '<li v-for="a in apms" v-text="a" :class="{active: apm === a}" @click="select(\'apm\', a)"></li>' +
+            '<li v-for="a in apms" v-text="a" :class="{active: apm === a}" @click.stop="select(\'apm\', a)"></li>' +
           '</ul>' +
         '</div>' +
       '</div>' +

@@ -2,6 +2,19 @@
 
 > The Change Log of Vue Time Picker `vue-timepicker`
 
+## v 0.2.6
+
+### Improvements
+
+- Added stop propagation `.stop` to click events
+- Add support to `<label for="...">`
+
+```html
+<!-- Sample -->
+<label for="yourID">Your Label Text</label>
+<vue-timepicker id="yourID"></vue-timepicker>
+```
+
 ## v 0.2.5
 
 ### Update
