@@ -194,7 +194,7 @@ this.$on('vue-timepicker-update', function (eventData) {
 })
 ```
 
-Unlike the sync `time-value`, which only returns the defined time format you provided in format string (`HH`, `mm` and `ss` in the above case), the `vue-timepicker-update` event will return **all** time format.
+Unlike the sync `time-value`, which only returns tokens you provided in the initial data (`HH`, `mm` and `ss` in the above case), the `vue-timepicker-update` event will return **all** time format.
 
 In the example above, when picker is set to "14:30:15" in HH:mm:ss format, `vue-timepicker-update` will return the following data:
 
@@ -216,11 +216,11 @@ In the example above, when picker is set to "14:30:15" in HH:mm:ss format, `vue-
 }
 ```
 
-Whereas the `time-value` will only return the data with defined tokens in format string
+Whereas the `time-value` will only return data with your predefined tokens
 
 ```javascript
-// Previously defined format="HH:mm:ss"
-// Hence, `time-value`'s synced variable (`yourTimeValue` in this case) returns:
+// Previously defined tokens in `yourTimeValue` are `HH`, `mm` and `ss`
+// Hence, `time-value`'s synced data returns:
 {
   HH: "14",
   mm: "30",
