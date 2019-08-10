@@ -1,15 +1,19 @@
 
 # NOTICE
 
-## You are looking at a component for **Vue 1.x**
+## ⚠️ You are looking at a component for **Vue 1.x**
 
 Please use [vue2-timepicker](https://github.com/phoenixwong/vue2-timepicker) for your awesome **Vue 2.x** project.
 
-## This repository will NOT be updated again
+## 🚧 This repository will NOT be updated again
 
-It's been almost 3 years since Vue release its 2.0 version on Sep 30, 2016 ([official announcement](https://medium.com/the-vue-point/vue-2-0-is-here-ef1f26acf4b8)). Let's embrace the new world!
+It's been almost three years since Vue release its 2.0 version on Sep 30, 2016 ([official announcement](https://medium.com/the-vue-point/vue-2-0-is-here-ef1f26acf4b8)). Let's embrace the new world!
 
 There's a [basic guideline](https://github.com/phoenixwong/vue2-timepicker/blob/master/MIGRATION.md) in [vue2-timepicker](https://github.com/phoenixwong/vue2-timepicker) to help you migrating from this Vue 1.x component. Please give it a try.
+
+⭐️ The latest version of **[vue2-timepicker](https://github.com/phoenixwong/vue2-timepicker)**: ![npm](https://img.shields.io/npm/v/vue2-timepicker?style=flat-square)
+
+---
 
 # Vue Time Picker for Vue 1.x
 
